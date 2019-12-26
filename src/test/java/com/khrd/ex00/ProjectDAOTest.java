@@ -1,6 +1,7 @@
 package com.khrd.ex00;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
@@ -24,29 +25,40 @@ public class ProjectDAOTest {
 		System.out.println(dao);
 	}
 	
-	//@Test
-	public void insertTest() {
-		//ProjectVO vo = new ProjectVO(null, "제목", "내용", new Date((new Timestamp("2019-10-10")).getTime()), new Date((new Timestamp("2019-12-12")).getTime()), "1");		
-		//dao.insert(vo);
+	@Test
+	public void insertTest() throws ParseException {
+		ProjectVO vo = new ProjectVO();
+		vo.setTitle("제목");
+		vo.setContent("내용");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sdate = sdf.parse("2019-12-13");
+		vo.setStartdate(sdate);
+		Date edate = sdf.parse("2019-12-14");
+		vo.setEnddate(edate);
+		vo.setState(1);
+		dao.insert(vo);
 	}
 	
-	//@Test
+	@Test
 	public void listTest() {
 		dao.list();
 	}
 	
-	//@Test
+	@Test
 	public void selectByIdTest() {
 		dao.selectByNo(1);
 	}
 	
-	//@Test
-	public void updateTest() {
-		//ProjectVO vo = new ProjectVO(1, "제목", "내용", new Date("2019-12-10"), new Date("2019-12-12"), 1);
-		//dao.update(vo);
+	@Test
+	public void updateTest() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sdate = sdf.parse("2019-12-13");
+		Date edate = sdf.parse("2019-12-14");
+		ProjectVO vo = new ProjectVO(1, "제목2", "내용2", sdate, edate, 1);
+		dao.update(vo);
 	}
 	
-	//@Test
+	@Test
 	public void deleteTest() {
 		dao.delete(1);
 	}
